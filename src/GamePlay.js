@@ -5,13 +5,16 @@ var STATE_GAME_PLAYING              = 2;
 var STATE_GAME_GAME_OVER            = 3;
 var STATE_GAME_WIN                  = 4;
 
-var stateGame = STATE_GAME_NONE;
+var stateGame = STATE_GAME_NONE; //estado inicial
 
 GamePlayManager = {
     init: function(){
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL; //Haciendo las dimensiones de nuestro juego responsivas
         game.scale.pageAlignHorizontally = true; // Alineando horizontalmente nuestro juego para poderlo centrar
         game.scale.pageAlignVertically = true; //  Alineando verticalmente nuestro juego para poderlo centrar
+
+        this.cursors = game.input.keyboard.createCursorKeys();
+        this.pressEnable = true; // Bandera para cuando presionas botones
 
     },
     preload: function(){ //Cargue nuestras imagenes
@@ -29,12 +32,13 @@ GamePlayManager = {
         this.buttonPlay.anchor.setTo(0.5); // Definiendo el centro del boton
     },
     startGame:function() {
-        stateGame = STATE_GAME_LOADING;
+        stateGame = STATE_GAME_PLAYING; // Configurando el estado del juego en  playing
+        this.buttonPlay.visible = false; //ocultando el boton de play cuando se inicia el juego
 
         console.log("Start");
     },
     update: function(){
-        switch(stateGame){
+        switch(stateGame){ //Maquina de estados
             case STATE_GAME_NONE:
 
                 break;
@@ -44,7 +48,16 @@ GamePlayManager = {
                 break;
 
             case STATE_GAME_PLAYING:
-                
+                if (this.cursors.left.isDown && this.pressEnable) { // Verificando si el boton izquierdo es presionado
+                    this.pressEnable = false;
+                }
+                if (this.cursors.right.isDown && this.pressEnable) { //Verificando si el boton izquierdo es presionado
+                    this.pressEnable = false;
+                    console.log("RIGHT DOWN");
+                }
+                if (this.cursors.left.isUp && this.cursors.right.isUp) { //Si ambos botones estan arriba lo vuelve verdadero de nuevo
+                    this.pressEnable = true;
+                }
                 break;
 
             case STATE_GAME_GAME_OVER:
