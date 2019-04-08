@@ -22,6 +22,7 @@ GamePlayManager = {
 
         game.load.image('background', 'assets/img/background.png');
         game.load.image('wood_cutter', 'assets/img/man_stand.png');
+        game.load.image('wood_cutter_hit', 'assets/img/man_hit.png');
         game.load.spritesheet('play_button', 'assets/img/buttonPlay.png', 65, 65, 2);
     },
     create: function(){
@@ -52,15 +53,17 @@ GamePlayManager = {
                     this.pressEnable = false;
                     this.wood_cutter.x = 80;
                     this.wood_cutter.scale.setTo(1,1)
+                    this.wood_cutter.loadTexture('wood_cutter_hit');
                 }
                 if (this.cursors.right.isDown && this.pressEnable) { //Verificando si el boton izquierdo es presionado
                     this.pressEnable = false;
                     this.wood_cutter.x = 240;
                     this.wood_cutter.scale.setTo(-1,1)
-                    console.log("RIGHT DOWN");
+                    this.wood_cutter.loadTexture('wood_cutter_hit');
                 }
                 if (this.cursors.left.isUp && this.cursors.right.isUp) { //Si ambos botones estan arriba lo vuelve verdadero de nuevo
                     this.pressEnable = true;
+                    this.wood_cutter.loadTexture('wood_cutter');
                 }
                 break;
 
