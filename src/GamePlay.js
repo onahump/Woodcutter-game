@@ -11,10 +11,11 @@ GamePlayManager = {
     },
     create: function(){
         game.add.sprite(0,0, 'background');
-        this.word_cutter = game.add.sprite(game.world.centerX , game.world.centerY, 'wood_cutter'); // creando la instancia de nuestro objeto leñador
-        this.word_cutter.anchor.setTo(0.5, 1); //Definiendo el centro de nuestro objeto (0.5 en X  y 1 en Y)
-        this.word_cutter.scale.setTo(0.5,1); //Escalando nuestro objeto,  si queremos invertirlo solamente debemos poner las coordenadas en numeros negativos -1 , -1
-
+        this.wood_cutter = game.add.sprite(game.world.centerX , game.world.centerY, 'wood_cutter'); // creando la instancia de nuestro objeto leñador
+        this.wood_cutter.anchor.setTo(0.5, 1); //Definiendo el centro de nuestro objeto (0.5 en X  y 1 en Y)
+        this.wood_cutter.scale.setTo(1); //Escalando nuestro objeto,  si queremos invertirlo solamente debemos poner las coordenadas en numeros negativos -1 , -1
+        this.wood_cutter.angle = 90; //rotando a nuesto leñador
+        this.wood_cutter.alpha = 0.5; //Cambiando la opacidad de nuestro objeto
     },
     update: function(){
         console.log("update")
