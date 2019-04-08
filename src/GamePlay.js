@@ -23,6 +23,7 @@ GamePlayManager = {
         game.load.image('background', 'assets/img/background.png');
         game.load.image('wood_cutter', 'assets/img/man_stand.png');
         game.load.image('wood_cutter_hit', 'assets/img/man_hit.png');
+        game.load.image('trunk', 'assets/img/trunk.png');
         game.load.spritesheet('play_button', 'assets/img/buttonPlay.png', 65, 65, 2);
     },
     create: function(){
@@ -31,6 +32,12 @@ GamePlayManager = {
         this.wood_cutter.anchor.setTo(0.5, 1); //Definiendo el centro de nuestro objeto (0.5 en X  y 1 en Y)
         this.buttonPlay = game.add.button(game.width/2, game.height/2, 'play_button', this.startGame, this, 1,0,1,0); //new Button(posicion x , posicion x, llave , funcion a llamar , callback Context GAMEPlayManager (this), imagen antes de pasar el raton, imagen al pasar el raton, imagen a cargar antes de dar click, imagen al cagar al dar click)
         this.buttonPlay.anchor.setTo(0.5); // Definiendo el centro del boton
+
+        this.trunks = game.add.group(); // Creando un grupo
+        this.trunks.create(50,50, 'trunk'); //Agregando objetos al grupo
+        this.trunks.create(150,50, 'trunk');
+
+
     },
     startGame:function() {
         stateGame = STATE_GAME_PLAYING; // Configurando el estado del juego en  playing
