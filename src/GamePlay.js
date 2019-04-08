@@ -53,17 +53,17 @@ GamePlayManager = {
                     this.pressEnable = false;
                     this.wood_cutter.x = 80;
                     this.wood_cutter.scale.setTo(1,1)
-                    this.wood_cutter.loadTexture('wood_cutter_hit');
+                    this.wood_cutter.loadTexture('wood_cutter_hit'); //Cambiando la textura de nuestro leñador
                 }
                 if (this.cursors.right.isDown && this.pressEnable) { //Verificando si el boton izquierdo es presionado
                     this.pressEnable = false;
                     this.wood_cutter.x = 240;
                     this.wood_cutter.scale.setTo(-1,1)
-                    this.wood_cutter.loadTexture('wood_cutter_hit');
+                    this.wood_cutter.loadTexture('wood_cutter_hit');  //Cambiando la textura de nuestro leñador
                 }
                 if (this.cursors.left.isUp && this.cursors.right.isUp) { //Si ambos botones estan arriba lo vuelve verdadero de nuevo
                     this.pressEnable = true;
-                    this.wood_cutter.loadTexture('wood_cutter');
+                    this.wood_cutter.loadTexture('wood_cutter'); //Cambiando la textura de nuestro leñador
                 }
                 break;
 
