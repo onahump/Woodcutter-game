@@ -1,4 +1,12 @@
 
+var STATE_GAME_NONE                 = 0;
+var STATE_GAME_LOADING              = 1;
+var STATE_GAME_PLAYING              = 2;
+var STATE_GAME_GAME_OVER            = 3;
+var STATE_GAME_WIN                  = 4;
+
+var stateGame = STATE_GAME_NONE;
+
 GamePlayManager = {
     init: function(){
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL; //Haciendo las dimensiones de nuestro juego responsivas
@@ -7,6 +15,8 @@ GamePlayManager = {
 
     },
     preload: function(){ //Cargue nuestras imagenes
+        stateGame = STATE_GAME_LOADING;
+
         game.load.image('background', 'assets/img/background.png');
         game.load.image('wood_cutter', 'assets/img/man_stand.png');
         game.load.spritesheet('play_button', 'assets/img/buttonPlay.png', 65, 65, 2);
@@ -19,10 +29,32 @@ GamePlayManager = {
         this.buttonPlay.anchor.setTo(0.5); // Definiendo el centro del boton
     },
     startGame:function() {
+        stateGame = STATE_GAME_LOADING;
+
         console.log("Start");
     },
     update: function(){
-        console.log("update")
+        switch(stateGame){
+            case STATE_GAME_NONE:
+
+                break;
+
+            case STATE_GAME_LOADING:
+
+                break;
+
+            case STATE_GAME_PLAYING:
+                
+                break;
+
+            case STATE_GAME_GAME_OVER:
+
+                break;
+
+            case STATE_GAME_WIN:
+
+                break;
+        }
     }
 }
 
