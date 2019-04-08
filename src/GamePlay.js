@@ -11,7 +11,10 @@ GamePlayManager = {
     },
     create: function(){
         game.add.sprite(0,0, 'background');
-        game.add.sprite(50,50, 'wood_cutter');
+        this.word_cutter = game.add.sprite(game.world.centerX , game.world.centerY, 'wood_cutter'); // creando la instancia de nuestro objeto leñador
+        this.word_cutter.anchor.setTo(0.5, 1); //Definiendo el centro de nuestro objeto (0.5 en X  y 1 en Y)
+
+
     },
     update: function(){
         console.log("update")
