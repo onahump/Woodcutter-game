@@ -1,7 +1,9 @@
 
 GamePlayManager = {
     init: function(){
-        console.log("init")
+        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL; //Haciendo las dimensiones de nuestro juego responsivas
+        game.scale.pageAlignHorizontally = true; // Alineando horizontalmente nuestro juego para poderlo centrar
+        game.scale.pageAlignVertically = true; //  Alineando verticalmente nuestro juego para poderlo centrar
     },
     preload: function(){ //Cargue nuestras imagenes
         game.load.image('background', 'assets/img/background.png');
