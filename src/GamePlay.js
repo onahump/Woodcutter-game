@@ -27,6 +27,10 @@ GamePlayManager = {
         game.load.image('trunk', 'assets/img/trunk.png');
         game.load.spritesheet('play_button', 'assets/img/buttonPlay.png', 65, 65, 2);
         game.load.image('tomb', 'assets/img/tomb.png');
+
+        game.load.audio('loopMusic','/assets/sounds/musicLoop.mp3');
+        game.load.audio('sfxHit', 'assets/sounds/sfxHit.mp3');
+        game.load.audio('sfxGameOver', 'assets/sounds/sfxGameOver.mp3');
     },
     create: function(){
         this.sequence = []; //
@@ -66,6 +70,11 @@ GamePlayManager = {
         this.bar.anchor.setTo(0);
         this.bar.width = game.width;
         this.bar.height = 10;
+
+        this.loopMusic = game.add.audio('loopMusic');
+        this.sfxHit = game.add.audio('sfxHit');
+        this.sfxGameOver = game.add.audio('sfxGameOver');
+
     },
     refreshBar:function(value){
         var newWidth = this.bar.width + value;
@@ -81,7 +90,8 @@ GamePlayManager = {
     startGame:function() {
         stateGame = STATE_GAME_PLAYING; // Configurando el estado del juego en  playing
         this.buttonPlay.visible = false; //ocultando el boton de play cuando se inicia el juego
-
+        this.loopMusic.loop = true;
+        this.loopMusic.play();
         this.bar.width = game.width;
 
         for(var i=0; i<this.sequence.length; i++){
@@ -110,6 +120,7 @@ GamePlayManager = {
         this.textField.text = this.currentScore.toString();
     },
     hitMan:function(direction){
+        this.sfxHit.play();
         for (var i = 0; i < this.sequence.length; i++) {
            if (this.sequence[i] != null) {
                this.sequence[i].y += distanceTrunks;
@@ -134,6 +145,8 @@ GamePlayManager = {
     gameOver:function(){
         stateGame = STATE_GAME_GAME_OVER;
 
+        this.loopMusic.stop();
+        this.sfxGameOver.play();
         this.wood_cutter.visible = false;
         this.tomb.visible =true;
         this.tomb.x = this.wood_cutter.x;
@@ -214,7 +227,7 @@ GamePlayManager = {
     }
 }
 
-var game =  new Phaser.Game(320, 480, Phaser.CANVAS);
+var game =  new Phaser.Game(320, 480, Phaser.AUTO);
 
 game.state.add("gameplay", GamePlayManager);
 game.state.start("gameplay");
