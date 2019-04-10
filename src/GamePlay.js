@@ -6,6 +6,7 @@ var STATE_GAME_GAME_OVER            = 3;
 var STATE_GAME_WIN                  = 4;
 
 var stateGame = STATE_GAME_NONE; //estado inicial
+var distanceTrunks = 70; // definiendo la distancia entre troncos
 
 GamePlayManager = {
     init: function(){
@@ -34,16 +35,40 @@ GamePlayManager = {
         this.buttonPlay.anchor.setTo(0.5); // Definiendo el centro del boton
 
         this.trunks = game.add.group(); // Creando un grupo
-        this.trunks.create(50,50, 'trunk'); //Agregando objetos al grupo
-        this.trunks.create(150,50, 'trunk');
 
+        for(var i =0; i <30; i++){ //Iterando para obtener 30 troncos
+            var trunk = this.trunks.create(0,0, 'trunk');
+            trunk.anchor.setTo(0, 0.5);
+            trunk.kill(); //eliminando los troncos para que despues esten disponibles
+        }
 
     },
     startGame:function() {
         stateGame = STATE_GAME_PLAYING; // Configurando el estado del juego en  playing
         this.buttonPlay.visible = false; //ocultando el boton de play cuando se inicia el juego
 
-        console.log("Start");
+        this.sequence = []; //
+        for(var i=0; i<10; i++){
+            this.addTrunks();
+        }
+    },
+    addTrunks:function(){
+        var number = game.rnd.integerInRange(-1,1); //escogiendo un numero al azar entre -1 y 1
+        if (number ==1) {
+            var trunk = this.trunks.getFirstDead(); //obteniendo un tronco
+            trunk.direction = 1;    //si es 1 se ve a la derecha
+            trunk.scale.setTo(1,1); //
+            trunk.reset(game.world.centerX, 300 - (this.sequence.length) * distanceTrunks);
+            this.sequence.push(trunk);
+        }else if(number == -1){
+            var trunk = this.trunks.getFirstDead();
+            trunk.direction = -1;   //si es -1 se ve a la izquierda
+            trunk.scale.setTo(-1,1);
+            trunk.reset(game.world.centerX, 300 - (this.sequence.length) * distanceTrunks);
+            this.sequence.push(trunk);
+        }else{
+            this.sequence.push(null); //no envia ningun tronco
+        }
     },
     update: function(){
         switch(stateGame){ //Maquina de estados
