@@ -47,6 +47,17 @@ GamePlayManager = {
             trunk.kill(); //eliminando los troncos para que despues esten disponibles
         }
 
+
+        var style = {
+            font: 'bold 30pt Arial',
+            fill: '#FFFFFF',
+            align: 'center',
+        }
+
+        this.currentScore = 0
+        this.textField = game.add.text(game.width/2, 40, this.currentScore.toString(), style);
+        this.textField.anchor.setTo(0.5);
+
     },
     startGame:function() {
         stateGame = STATE_GAME_PLAYING; // Configurando el estado del juego en  playing
@@ -57,6 +68,8 @@ GamePlayManager = {
                 this.sequence[i].kill()
             }
         }
+        this.currentScore = 0;
+        this.textField.text = this.currentScore.toString();
 
         this.sequence = []; //
         this.sequence.push(null);
@@ -70,6 +83,10 @@ GamePlayManager = {
             this.addTrunks();
         }
         this.printSequence();
+    },
+    incrementScore: function(){
+        this.currentScore += 100;
+        this.textField.text = this.currentScore.toString();
     },
     hitMan:function(direction){
         for (var i = 0; i < this.sequence.length; i++) {
@@ -87,6 +104,8 @@ GamePlayManager = {
         var checkTrunk = this.sequence[0];
         if(checkTrunk != null && checkTrunk.direction == direction){
             this.gameOver();
+        }else{
+            this.incrementScore();
         }
 
         this.printSequence();
