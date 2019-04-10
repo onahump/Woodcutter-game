@@ -58,10 +58,31 @@ GamePlayManager = {
         this.textField = game.add.text(game.width/2, 40, this.currentScore.toString(), style);
         this.textField.anchor.setTo(0.5);
 
+        var pixel = game.add.bitmapData(1,1);   //Creando nuestro pixel rojo
+        pixel.ctx.fillStyle = '#A0221E';
+        pixel.ctx.fillRect(0,0,1,1);
+
+        this.bar = game.add.sprite(0,0, pixel); // Creando la barra con base en nuestro pixel rojo
+        this.bar.anchor.setTo(0);
+        this.bar.width = game.width;
+        this.bar.height = 10;
+    },
+    refreshBar:function(value){
+        var newWidth = this.bar.width + value;
+        if(newWidth > game.width){
+            newWidth = game.width;
+        }
+        if(newWidth <=0){
+            newWidth = 0;
+            this.gameOver();
+        }
+        this.bar.width = newWidth;
     },
     startGame:function() {
         stateGame = STATE_GAME_PLAYING; // Configurando el estado del juego en  playing
         this.buttonPlay.visible = false; //ocultando el boton de play cuando se inicia el juego
+
+        this.bar.width = game.width;
 
         for(var i=0; i<this.sequence.length; i++){
             if (this.sequence[i] != null) {
@@ -120,6 +141,8 @@ GamePlayManager = {
 
     },
     addTrunks:function(){
+        this.refreshBar(6);
+
         var number = game.rnd.integerInRange(-1,1); //escogiendo un numero al azar entre -1 y 1
         if (number ==1) {
             var trunk = this.trunks.getFirstDead(); //obteniendo un tronco
@@ -159,6 +182,7 @@ GamePlayManager = {
                 break;
 
             case STATE_GAME_PLAYING:
+                this.refreshBar(-0.5);
                 if (this.cursors.left.isDown && this.pressEnable) { // Verificando si el boton izquierdo es presionado
                     this.pressEnable = false;
                     this.wood_cutter.x = 80;
